@@ -18,10 +18,15 @@ trait SingletonTrait
     public static function getInstance($instanceId = 'default')
     {
         if (! array_key_exists($instanceId, static::$singletonInstances)) {
-            static::$singletonInstances[$instanceId] = new static();
+            // Check to see if a method has been created to create the singleton instance.
+            if (method_exists(static::class, 'createSingleton') && is_callable([static::class, 'createSingleton'])) {
+                static::$singletonInstances[$instanceId] = static::createSingleton($instanceId);
+            } else {
+                static::$singletonInstances[$instanceId] = new static();
+            }
 
             // Allow some sort of initialization for the singleton objects.
-            if (method_exists(static::$singletonInstances[$instanceId], 'initSingleton')) {
+            if (method_exists(static::$singletonInstances[$instanceId], 'initSingleton') && is_callable([static::$singletonInstances[$instanceId], 'initSingleton'])) {
                 static::$singletonInstances[$instanceId]->initSingleton($instanceId);
             }
         }
