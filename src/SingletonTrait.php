@@ -34,4 +34,16 @@ trait SingletonTrait
         return static::$singletonInstances[$instanceId];
     }
 
+
+    /**
+     * @param $instanceId
+     * @param $instance
+     * @return mixed
+     */
+    public static function setInstance($instanceId, $instance)
+    {
+        static::$singletonInstances[$instanceId] = $instance;
+        return $instance;
+    }
+
 }
