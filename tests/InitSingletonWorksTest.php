@@ -29,7 +29,7 @@ class InitSingletonTestClass
     }
 }
 
-class InitSingletonWorks extends PHPUnit_Framework_TestCase
+class InitSingletonWorksTest extends PHPUnit_Framework_TestCase
 {
 
     public function testCreateSingletonIsUsed()

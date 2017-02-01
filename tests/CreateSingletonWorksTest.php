@@ -40,7 +40,7 @@ class CreateSingletonTestClassTwo extends CreateSingletonTestClassOne
     
 }
 
-class CreateSingletonWorks extends PHPUnit_Framework_TestCase
+class CreateSingletonWorksTest extends PHPUnit_Framework_TestCase
 {
 
     public function testCreateSingletonIsUsed()
