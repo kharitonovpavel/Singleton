@@ -20,10 +20,12 @@ trait SingletonTrait
         if (! array_key_exists($instanceId, static::$singletonInstances)) {
             // Check to see if a method has been created to create the singleton instance.
             if (method_exists(static::class, 'createSingleton') && is_callable([static::class, 'createSingleton'])) {
-                static::$singletonInstances[$instanceId] = static::createSingleton($instanceId);
+                $instance = static::createSingleton($instanceId);
             } else {
-                static::$singletonInstances[$instanceId] = new static();
+                $instance = new static();
             }
+
+            static::setInstance($instanceId, $instance);
 
             // Allow some sort of initialization for the singleton objects.
             if (method_exists(static::$singletonInstances[$instanceId], 'initSingleton') && is_callable([static::$singletonInstances[$instanceId], 'initSingleton'])) {
@@ -40,7 +42,7 @@ trait SingletonTrait
      * @param $instance
      * @return mixed
      */
-    public static function setInstance($instanceId, $instance)
+    public static function setInstance($instanceId, & $instance)
     {
         static::$singletonInstances[$instanceId] = $instance;
         return $instance;
